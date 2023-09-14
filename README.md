@@ -28,6 +28,21 @@
 7.游戏开始后 给予每个玩家 铁镐（精准采集） 熟牛排x64  损坏的鞘翅  经验修补的附魔书 道具加快游戏进度
 
 8.推荐使用该[数据包](https://www.bilibili.com/video/BV1wj41117ke/) 降低染色方块难度
+
+# 自动加载数据包
+
+在服务器根目录创建文件夹 `datapacks` 将数据包放入
+
+更改服务器启动文件（start.bat）：
+  ```
+:s
+rd /s /q world
+rd /s /q world_nether
+rd /s /q world_the_end
+xcopy /E/C/I datapacks world\datapacks
+java -jar paper-1.20.1.jar --nogui
+goto s
+```
 # 版权说明
 
 该项目签署 [**GNU Affero General Public License v3.0**](https://github.com/LQSnow/BlockRacing/blob/main/LICENSE) 授权许可
