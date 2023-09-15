@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Random;
+import java.util.Iterator;
 
 import static org.bukkit.Bukkit.getServer;
 import static top.lqsnow.blockracing.listeners.EventListener.*;
@@ -32,12 +33,14 @@ public class GameManager {
     public static boolean gameStart = false;
     public static int locateCost;
     public static boolean extremeMode = false;
+    private static final Object LOCK = new Object();
+
 
     // 玩家登录时的设置
     public static void playerLogin(Player player) {
         if (!gameStart) {
             ConsoleCommandHandler.send("gamemode adventure @a");
-            ConsoleCommandHandler.send("tellraw " + player.getName() + " {\"text\": \"\\u00a7b\\u00a7l欢迎来到方块竞速极速版！按潜行+右键打开菜单进行选队和准备！手机玩家请使用潜行点地打开菜单\"}");
+            ConsoleCommandHandler.send("tellraw " + player.getName() + " {\"text\": \"\\u00a7b\\u00a7l欢迎来到方块竞速极速版！按潜行+空手右键打开菜单进行选队和准备！手机玩家请使用潜行空手点地打开菜单\"}");
         } else {
             if (redTeamPlayerString.contains(player.getName())) {
                 if (!redTeamPlayer.contains(player)) {
@@ -101,59 +104,68 @@ public class GameManager {
             }
         }
 
-        // 随机传送
+// 随机传送
         World playerWorld = Bukkit.getWorld("world");
-        for (Player player : var) {
-            double randX = r.nextInt(20000) - 10000;
-            double randZ = r.nextInt(20000) - 10000;
-            Location offset = new Location(playerWorld, randX, 0, randZ).toHighestLocation();
-            double Y = offset.getY() + 1;
-            offset.setY(Y);
-            player.teleport(offset);
-            player.sendMessage(ChatColor.GREEN + "已传送到 " + offset.getX() + " " + offset.getY() + " " + offset.getZ());
-            player.setHealth(20);
-            player.setExp(0);
-            player.setLevel(0);
-            player.setFoodLevel(20);
-            player.setSaturation(10);
-            blueTeamScore += 1;
-            redTeamScore += 1;
-            ConsoleCommandHandler.send("effect clear @a");
-            ConsoleCommandHandler.send("effect give @a fire_resistance 60 0 true");
-            ConsoleCommandHandler.send("effect give @a water_breathing 60 0 true");
-            ConsoleCommandHandler.send("clear @a");
-            ConsoleCommandHandler.send("time set day");
-            ConsoleCommandHandler.send("difficulty easy");
-            ConsoleCommandHandler.send("effect give @a minecraft:night_vision 999999 99 true");
-            ScoreboardManager.update();
+        synchronized(LOCK) {
+            for (Player player : var) {
+                double randX = r.nextInt(20000) - 10000;
+                double randZ = r.nextInt(20000) - 10000;
+                Location offset = new Location(playerWorld, randX, 0, randZ).toHighestLocation();
+                double Y = offset.getY() + 1;
+                offset.setY(Y);
+                player.teleport(offset);
+                player.sendMessage(ChatColor.GREEN + "已传送到 " + offset.getX() + " " + offset.getY() + " " + offset.getZ());
+                player.setHealth(20);
+                player.setExp(0);
+                player.setLevel(0);
+                player.setFoodLevel(20);
+                player.setSaturation(10);
+                blueTeamScore += 1;
+                redTeamScore += 1;
+                ConsoleCommandHandler.send("effect clear @a");
+                ConsoleCommandHandler.send("effect give @a fire_resistance 60 0 true");
+                ConsoleCommandHandler.send("effect give @a water_breathing 60 0 true");
+                ConsoleCommandHandler.send("clear @a");
+                ConsoleCommandHandler.send("time set day");
+                ConsoleCommandHandler.send("difficulty easy");
+                ConsoleCommandHandler.send("effect give @a minecraft:night_vision 999999 99 true");
+                ScoreboardManager.update();
+            }
+
             for (Player p : var) {
                 ConsoleCommandHandler.send("gamemode survival " + p.getName());
             }
+
+            Iterator<Player> redIterator = redTeamPlayer.iterator();
+            while (redIterator.hasNext()) {
+                Player p = redIterator.next();
+                if (!inGamePlayer.contains(p)) {
+                    redIterator.remove();
+                    redTeamPlayerString.remove(p.getName());
+                    red.removeEntry(p.getName());
+                }
+            }
+
+            Iterator<Player> blueIterator = blueTeamPlayer.iterator();
+            while (blueIterator.hasNext()) {
+                Player p = blueIterator.next();
+                if (!inGamePlayer.contains(p)) {
+                    blueIterator.remove();
+                    blueTeamPlayerString.remove(p.getName());
+                    blue.removeEntry(p.getName());
+                }
+            }
         }
 
-        for (Player p : redTeamPlayer) {
-            if (!inGamePlayer.contains(p)) {
-                redTeamPlayer.remove(p.getPlayer());
-                redTeamPlayerString.remove(Objects.requireNonNull(p.getPlayer()).getName());
-                red.removeEntry(p.getName());
-            }
-        }
-        for (Player p : blueTeamPlayer) {
-            if (!inGamePlayer.contains(p)) {
-                blueTeamPlayer.remove(p.getPlayer());
-                blueTeamPlayerString.remove(Objects.requireNonNull(p.getPlayer()).getName());
-                blue.removeEntry(p.getName());
-            }
-        }
+        Bukkit.getLogger().info("红队本局全部方块：");
+        Bukkit.getLogger().info(redCurrentBlocks.toString() + redTeamBlocks.toString());
+        Bukkit.getLogger().info("蓝队本局全部方块：");
+        Bukkit.getLogger().info(blueCurrentBlocks.toString() + blueTeamBlocks.toString());
         ConsoleCommandHandler.send("give @a iron_pickaxe{display:{Lore:['[{\"text\":\"极速模式专享道具\",\"italic\":false}]']},Enchantments:[{id:silk_touch,lvl:1}]} 1");
         ConsoleCommandHandler.send("give @a cooked_beef{display:{Lore:['[{\"text\":\"极速模式专享食物\",\"italic\":false}]']},Enchantments:[{id:unbreaking,lvl:114}]} 64");
         ConsoleCommandHandler.send("give @a elytra{Damage:433,RepairCost:15,display:{Lore:['[{\"text\":\"极速模式专享道具\",\"italic\":false}]']}} 1");
         ConsoleCommandHandler.send("give @a enchanted_book{StoredEnchantments:[{id:mending,lvl:1}],display:{Lore:['[{\"text\":\"极速模式专享道具\",\"italic\":false}]']}} 1");
         ConsoleCommandHandler.send("tellraw @a \"\\u00a7c\\u00a7l极速版专享道具已发放完毕！祝你好运！\"");
-        Bukkit.getLogger().info("红队本局全部方块：");
-        Bukkit.getLogger().info(redCurrentBlocks.toString() + redTeamBlocks.toString());
-        Bukkit.getLogger().info("蓝队本局全部方块：");
-        Bukkit.getLogger().info(blueCurrentBlocks.toString() + blueTeamBlocks.toString());
     }
 
     // 设置两个队伍的目标方块

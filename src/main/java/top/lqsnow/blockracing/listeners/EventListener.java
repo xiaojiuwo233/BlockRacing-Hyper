@@ -210,30 +210,31 @@ public class EventListener implements Listener {
                 ScoreboardManager.update();
                 return;
             }
-
-            // 队伍选择
-            if (clickedItem.getItemMeta().getDisplayName().equals(ChatColor.RED + "加入红队")) {
-                red.addEntry(player.getName());
-                ConsoleCommandHandler.send("tellraw @a {\"text\": \"\\u00a7c" + player.getName() + "加入了红队！\"}");
-                redTeamPlayer.add((Player) player);
-                redTeamPlayerString.add(player.getName());
-                if (blueTeamPlayer.contains(player)) {
-                    blueTeamPlayer.remove(player);
-                    blueTeamPlayerString.remove(player.getName());
-                    blue.removeEntry(player.getName());
+// 队伍选择
+            synchronized(this) {
+                if (clickedItem.getItemMeta().getDisplayName().equals(ChatColor.RED + "加入红队")) {
+                    red.addEntry(player.getName());
+                    ConsoleCommandHandler.send("tellraw @a {\"text\": \"\\u00a7c" + player.getName() + "加入了红队！\"}");
+                    redTeamPlayer.add((Player) player);
+                    redTeamPlayerString.add(player.getName());
+                    if (blueTeamPlayer.contains(player)) {
+                        blueTeamPlayer.remove(player);
+                        blueTeamPlayerString.remove(player.getName());
+                        blue.removeEntry(player.getName());
+                    }
+                    return;
+                } else if (clickedItem.getItemMeta().getDisplayName().equals(ChatColor.BLUE + "加入蓝队")) {
+                    blue.addEntry(player.getName());
+                    ConsoleCommandHandler.send("tellraw @a {\"text\": \"\\u00a79" + player.getName() + "加入了蓝队！\"}");
+                    blueTeamPlayer.add((Player) player);
+                    blueTeamPlayerString.add(player.getName());
+                    if (redTeamPlayer.contains(player)) {
+                        redTeamPlayer.remove(player);
+                        redTeamPlayerString.remove(player.getName());
+                        red.removeEntry(player.getName());
+                    }
+                    return;
                 }
-                return;
-            } else if (clickedItem.getItemMeta().getDisplayName().equals(ChatColor.BLUE + "加入蓝队")) {
-                blue.addEntry(player.getName());
-                ConsoleCommandHandler.send("tellraw @a {\"text\": \"\\u00a79" + player.getName() + "加入了蓝队！\"}");
-                blueTeamPlayer.add((Player) player);
-                blueTeamPlayerString.add(player.getName());
-                if (redTeamPlayer.contains(player)) {
-                    redTeamPlayer.remove(player);
-                    redTeamPlayerString.remove(player.getName());
-                    red.removeEntry(player.getName());
-                }
-                return;
             }
 
             // 准备
