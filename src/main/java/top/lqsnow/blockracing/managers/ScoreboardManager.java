@@ -55,7 +55,7 @@ public class ScoreboardManager {
     public static void setPreScoreboard() {
         setTitle("&b方块竞速 &c极速模式");
         setSlot(9, ChatColor.GREEN + "潜行+右键打开菜单");
-        setSlot(8, ChatColor.GREEN + "手机玩家请使用 潜行点地 打开菜单");
+        setSlot(8, ChatColor.GREEN + "手机玩家请使用 潜行空手点地 打开菜单");
         setSlot(7, ChatColor.RED + "极速模式启用中！");
         setSlot(6, ChatColor.YELLOW + "当前模式：" + (extremeMode ? "极限竞速模式" : "普通模式"));
         setSlot(5, ChatColor.YELLOW + "目标方块数量：" + blockAmount);
@@ -72,38 +72,38 @@ public class ScoreboardManager {
         Collections.addAll(endBlock, endBlocks);
 
         if (redCurrentBlocks.size() >= 1) {
-            setSlot(11, setDifficultyDisplay(redCurrentBlocks.get(0)));
+            setSlot(12, setDifficultyDisplay(redCurrentBlocks.get(0)));
+            setSlot(11, "");
             setSlot(10, "");
             setSlot(9, "");
-            setSlot(8, "");
         }
         if (redCurrentBlocks.size() >= 2) {
-            setSlot(10, setDifficultyDisplay(redCurrentBlocks.get(1)));
+            setSlot(11, setDifficultyDisplay(redCurrentBlocks.get(1)));
         }
         if (redCurrentBlocks.size() >= 3) {
-            setSlot(9, setDifficultyDisplay(redCurrentBlocks.get(2)));
+            setSlot(10, setDifficultyDisplay(redCurrentBlocks.get(2)));
         }
         if (redCurrentBlocks.size() >= 4) {
-            setSlot(8, setDifficultyDisplay(redCurrentBlocks.get(3)));
+            setSlot(9, setDifficultyDisplay(redCurrentBlocks.get(3)));
         }
         if (blueCurrentBlocks.size() >= 1) {
-            setSlot(5, setDifficultyDisplay(blueCurrentBlocks.get(0)));
+            setSlot(6, setDifficultyDisplay(blueCurrentBlocks.get(0)));
+            setSlot(5, "");
             setSlot(4, "");
             setSlot(3, "");
-            setSlot(2, "");
         }
         if (blueCurrentBlocks.size() >= 2) {
-            setSlot(4, setDifficultyDisplay(blueCurrentBlocks.get(1)));
+            setSlot(5, setDifficultyDisplay(blueCurrentBlocks.get(1)));
         }
         if (blueCurrentBlocks.size() >= 3) {
-            setSlot(3, setDifficultyDisplay(blueCurrentBlocks.get(2)));
+            setSlot(4, setDifficultyDisplay(blueCurrentBlocks.get(2)));
         }
         if (blueCurrentBlocks.size() >= 4) {
-            setSlot(2, setDifficultyDisplay(blueCurrentBlocks.get(3)));
+            setSlot(3, setDifficultyDisplay(blueCurrentBlocks.get(3)));
         }
 
-        if (extremeMode) setSlot(13, ChatColor.YELLOW + "当前游戏模式为极限竞速模式！");
-        setSlot(15, ChatColor.GREEN + "极速模式启用中！3倍积分！ 特殊buff！");
+        if (extremeMode) setSlot(15, ChatColor.YELLOW + "当前游戏模式为极限竞速模式！");
+        setSlot(14, ChatColor.GREEN + "极速模式启用中！3倍积分！ 特殊buff！");
         setSlot(13, "&c红队：&e" + redTeamScore + "分" + "\u00a7b  (" + redCompleteAmount + "/" + blockAmount + ")");
         setSlot(8, "-------------------");
         setSlot(7, "&9蓝队：&e" + blueTeamScore + "分" + "\u00a7b  (" + blueCompleteAmount + "/" + blockAmount + ")");
