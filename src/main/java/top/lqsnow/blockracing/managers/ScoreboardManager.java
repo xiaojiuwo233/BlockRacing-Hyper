@@ -12,8 +12,8 @@ import org.bukkit.scoreboard.Team;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static top.lqsnow.blockracing.listeners.EventListener.blockAmount;
-import static top.lqsnow.blockracing.listeners.EventListener.*;
+import static top.lqsnow.blockracing.listeners.BasicEventListener.blockAmount;
+import static top.lqsnow.blockracing.listeners.InventoryEventListener.*;
 import static top.lqsnow.blockracing.managers.BlockManager.*;
 import static top.lqsnow.blockracing.managers.GameManager.*;
 import static top.lqsnow.blockracing.managers.GameTick.blueCompleteAmount;
@@ -54,14 +54,14 @@ public class ScoreboardManager {
     // 游戏开始前准备阶段的记分板设置
     public static void setPreScoreboard() {
         setTitle("&b方块竞速 &c极速模式");
-        setSlot(9, ChatColor.GREEN + "潜行+右键打开菜单");
+        setSlot(9, ChatColor.GREEN + "潜行+空手右键打开菜单");
         setSlot(8, ChatColor.GREEN + "手机玩家请使用 潜行空手点地 打开菜单");
         setSlot(7, ChatColor.RED + "极速模式启用中！");
-        setSlot(6, ChatColor.YELLOW + "当前模式：" + (extremeMode ? "极限竞速模式" : "普通模式"));
+        setSlot(6, ChatColor.YELLOW + "当前模式：" + (extremeMode ? ChatColor.RED + "极限竞速模式" : ChatColor.GREEN + "普通模式"));
         setSlot(5, ChatColor.YELLOW + "目标方块数量：" + blockAmount);
         setSlot(4, ChatColor.YELLOW + "目标方块库：简单方块" + (enableNormalBlock ? "+中等方块" : "") + (enableHardBlock ? "+困难方块" : "") + (enableDyedBlock ? "+染色方块" : "") + (enableEndBlock ? "+末地方块" : ""));
         setSlot(2, "&e&lModified by xjw233");
-        setSlot(1, "&ewww.github.com/LQSnow");
+        setSlot(1, "&e&lMade by LQ_Snow");
     }
 
     public static void setGameScoreboard() {
@@ -70,7 +70,6 @@ public class ScoreboardManager {
         Collections.addAll(hardBlock, hardBlocks);
         Collections.addAll(dyedBlock, dyedBlocks);
         Collections.addAll(endBlock, endBlocks);
-
         if (redCurrentBlocks.size() >= 1) {
             setSlot(12, setDifficultyDisplay(redCurrentBlocks.get(0)));
             setSlot(11, "");
@@ -103,7 +102,7 @@ public class ScoreboardManager {
         }
 
         if (extremeMode) setSlot(15, ChatColor.YELLOW + "当前游戏模式为极限竞速模式！");
-        setSlot(14, ChatColor.GREEN + "极速模式启用中！3倍积分！ 特殊buff！");
+        setSlot(14, ChatColor.GREEN + "极速模式启用中！特殊道具！");
         setSlot(13, "&c红队：&e" + redTeamScore + "分" + "\u00a7b  (" + redCompleteAmount + "/" + blockAmount + ")");
         setSlot(8, "-------------------");
         setSlot(7, "&9蓝队：&e" + blueTeamScore + "分" + "\u00a7b  (" + blueCompleteAmount + "/" + blockAmount + ")");
@@ -115,10 +114,6 @@ public class ScoreboardManager {
         if (!gameStart) setPreScoreboard();
         else setGameScoreboard();
     }
-    public static void roll() {
-
-    }
-
 
     // 设置玩家记分板
     public static void setPlayerScoreboard(Player p) {

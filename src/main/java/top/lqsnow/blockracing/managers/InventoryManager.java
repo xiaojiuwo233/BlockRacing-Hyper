@@ -40,18 +40,17 @@ public class InventoryManager {
     public static final String RANDOMTP = ChatColor.BLUE + "随机传送";
 
     // 创建物品栏
-    public static Player holder = Bukkit.getPlayer("InventoryHolder");
-    public static Inventory settings = Bukkit.createInventory(holder, 6 * 9, TITLE_SETTINGS);
-    public static Inventory menu = Bukkit.createInventory(holder, 9, TITLE_MENU);
-    public static Inventory chestSwitch = Bukkit.createInventory(holder, 9, TITLE_TEAM_CHEST_SWITCH);
-    public static Inventory redTeamChest1 = Bukkit.createInventory(holder, 6 * 9, RED_TEAM_CHEST1);
-    public static Inventory redTeamChest2 = Bukkit.createInventory(holder, 6 * 9, RED_TEAM_CHEST2);
-    public static Inventory redTeamChest3 = Bukkit.createInventory(holder, 6 * 9, RED_TEAM_CHEST3);
-    public static Inventory blueTeamChest1 = Bukkit.createInventory(holder, 6 * 9, BLUE_TEAM_CHEST1);
-    public static Inventory blueTeamChest2 = Bukkit.createInventory(holder, 6 * 9, BLUE_TEAM_CHEST2);
-    public static Inventory blueTeamChest3 = Bukkit.createInventory(holder, 6 * 9, BLUE_TEAM_CHEST3);
-    public static Inventory redWayPoints = Bukkit.createInventory(holder, 9, TITLE_WAYPOINTS);
-    public static Inventory blueWayPoints = Bukkit.createInventory(holder, 9, TITLE_WAYPOINTS);
+    public static Inventory settings = Bukkit.createInventory(null, 6 * 9, TITLE_SETTINGS);
+    public static Inventory menu = Bukkit.createInventory(null, 9, TITLE_MENU);
+    public static Inventory chestSwitch = Bukkit.createInventory(null, 9, TITLE_TEAM_CHEST_SWITCH);
+    public static Inventory redTeamChest1 = Bukkit.createInventory(null, 6 * 9, RED_TEAM_CHEST1);
+    public static Inventory redTeamChest2 = Bukkit.createInventory(null, 6 * 9, RED_TEAM_CHEST2);
+    public static Inventory redTeamChest3 = Bukkit.createInventory(null, 6 * 9, RED_TEAM_CHEST3);
+    public static Inventory blueTeamChest1 = Bukkit.createInventory(null, 6 * 9, BLUE_TEAM_CHEST1);
+    public static Inventory blueTeamChest2 = Bukkit.createInventory(null, 6 * 9, BLUE_TEAM_CHEST2);
+    public static Inventory blueTeamChest3 = Bukkit.createInventory(null, 6 * 9, BLUE_TEAM_CHEST3);
+    public static Inventory redWayPoints = Bukkit.createInventory(null, 9, TITLE_WAYPOINTS);
+    public static Inventory blueWayPoints = Bukkit.createInventory(null, 9, TITLE_WAYPOINTS);
 
     // 初始化
     public static void init() {
@@ -96,14 +95,15 @@ public class InventoryManager {
         setItem("CHEST", 1,
                 TEAM_CHEST, ChatColor.AQUA + "打开队伍箱子选择界面",
                 0, "menu");
+
         setItem("TOTEM_OF_UNDYING", 1,
-                ROLL, ChatColor.AQUA + "花费全部积分将重置本队的所有目标方块（每局每队仅限3次）",
+                ROLL, ChatColor.AQUA + "花费全部积分将当前目标方块替换（每局每队三次）",
                 2, "menu");
         setItem("MAP", 1,
                 WAYPOINTS, ChatColor.AQUA + "保存或传送至记录点",
                 6, "menu");
         setItem("ENDER_PEARL", 1,
-                RANDOMTP, ChatColor.AQUA + "花费2积分随机传送",
+                RANDOMTP, ChatColor.AQUA + "花费2积分随机传送，首次免费",
                 8, "menu");
 
         // chestSwitch
