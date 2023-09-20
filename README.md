@@ -4,6 +4,8 @@
 
 原作者 ： [LQSnow/BlockRacing](https://github.com/LQSnow/BlockRacing)
 
+基于原插件V2.1版本
+
 详细基础功能请查看原仓库
 
 本版本基于原版增加了一些功能，使游玩更加顺畅
@@ -19,7 +21,7 @@
 
 3.将菜单打开方式改为 潜行+空手右键 便于适配**基岩版**玩家游玩
 
-4.取消随机tp首次免费（退出重进可以无限卡bug免费）取而代之为开局给予初始积分 初始积分取决于游玩总人数的多少
+4.~~取消随机tp首次免费（退出重进可以无限卡bug免费）取而代之为开局给予初始积分 初始积分取决于游玩总人数的多少~~ 作者已修复该BUG 已还原原有逻辑
 
 5.游戏过程中增加 急迫5 夜视 效果 （打开菜单触发）
 
@@ -43,6 +45,11 @@ xcopy /E/C/I datapacks world\datapacks
 java -jar paper-1.20.1.jar --nogui
 goto s
 ```
+
+# 更新日志
+
+## 9.21 V1.2 
+同步更新至原作者2.1版本 [修改日志](https://github.com/xiaojiuwo233/InsaneMode1.2dev)
 # 版权说明
 
 该项目签署 [**GNU Affero General Public License v3.0**](https://github.com/LQSnow/BlockRacing/blob/main/LICENSE) 授权许可
