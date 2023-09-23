@@ -94,9 +94,9 @@ public class BasicEventListener implements IListener {
             }
             if (flag) {
                 BlockManager.init();
+                maxBlockAmount = 275;
                 if (blockAmount < 10) {
                     sendAll("&a需要收集的方块数量更改为10" + blockAmount);
-                    blockAmount = 10;
                 } else if (blockAmount > maxBlockAmount) {
                     sendAll("&a需要收集的方块数量更改为" + maxBlockAmount);
                     blockAmount = maxBlockAmount;
