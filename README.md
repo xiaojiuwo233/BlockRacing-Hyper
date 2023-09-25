@@ -1,5 +1,7 @@
 # 方块竞速BlockRacing 极速版
 
+## 原作者已收录该模式 请前往[作者原仓库](https://github.com/LQSnow/BlockRacing)查看新版本！
+
 版本：Java 1.20.1
 
 原作者 ： [LQSnow/BlockRacing](https://github.com/LQSnow/BlockRacing)
@@ -14,7 +16,18 @@
 
 欢迎提交issue和pr 由于本人并不会写java 修改内容有限 有的建议可能无法实现
 
-# 修改内容
+# 计划（V1.3）
+### 以后将基于原作者的新版本 进行以下修改：
+
+1.修改菜单打开方式 潜行+空手右键 适配基岩版玩家
+
+2.为基岩版提供FormUI支持（第三方插件）
+
+3.为基岩版优化文字显示效果
+
+4.数据包支持（详见修改内容第8项）
+
+# 修改内容（V1.2.2及以前）
 1.将插件版本升级为1.20.1 支持新方块 locate新群系
 
 2.每局roll次数更改为3次 并且不仅限于简单方块 来源：[BlockyDeer/BlockRacingPlus](https://github.com/BlockyDeer/BlockRacingPlus)
@@ -23,7 +36,7 @@
 
 4.~~取消随机tp首次免费（退出重进可以无限卡bug免费）取而代之为开局给予初始积分 初始积分取决于游玩总人数的多少~~ 作者已修复该BUG 已还原原有逻辑
 
-5.游戏过程中增加 急迫5 夜视 效果 （打开菜单触发）
+5.游戏过程中增加 急迫5 夜视 效果 （开始游戏后触发）
 
 6.收集方块获取积分x3 收集一个方块可以获得3积分
 
@@ -50,6 +63,11 @@ goto s
 
 ## 9.21 V1.2 
 同步更新至原作者2.1版本 [修改日志](https://github.com/xiaojiuwo233/InsaneMode1.2dev)
+
+## 9.24 V1.2.2
+1.修复方块数量bug
+
+2.修复退出重进引起的bug
 # 版权说明
 
 该项目签署 [**GNU Affero General Public License v3.0**](https://github.com/LQSnow/BlockRacing/blob/main/LICENSE) 授权许可

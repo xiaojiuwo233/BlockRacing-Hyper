@@ -46,20 +46,20 @@ public class GameManager {
 
     // 玩家登录时的设置
     public static void playerLogin(Player player) {
+        // ArrayList里装Player对象时，如果该玩家退出重进，ArrayList里的Player就不是游戏里的Player了，所以需要重新添加
+        if (redTeamPlayerString.contains(player.getName())) {
+            redTeamPlayer.removeIf(p -> p.getName().equals(player.getName()));
+            redTeamPlayer.add(player);
+        } else if (blueTeamPlayerString.contains(player.getName())) {
+            blueTeamPlayer.removeIf(p -> p.getName().equals(player.getName()));
+            blueTeamPlayer.add(player);
+        }
         if (!gameStart) {
             player.setGameMode(GameMode.ADVENTURE);
             player.sendMessage(t("&b&l欢迎来到方块竞速极速版！按潜行+空手右键打开菜单进行选队和准备！手机玩家请使用潜行空手点地打开菜单"));
             player.getWorld().setDifficulty(Difficulty.PEACEFUL);
         } else {
-            if (redTeamPlayerString.contains(player.getName())) {
-                if (!redTeamPlayer.contains(player)) {
-                    redTeamPlayer.add(player);
-                }
-            } else if (blueTeamPlayerString.contains(player.getName())) {
-                if (!blueTeamPlayer.contains(player)) {
-                    blueTeamPlayer.add(player);
-                }
-            } else {
+            if (!redTeamPlayerString.contains(player.getName()) && !blueTeamPlayerString.contains(player.getName())) {
                 player.setGameMode(GameMode.SPECTATOR);
                 player.sendMessage(ChatColor.RED + "游戏已开始，您现在为旁观者！");
             }
