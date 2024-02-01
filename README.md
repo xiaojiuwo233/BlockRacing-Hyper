@@ -1,7 +1,11 @@
 # 方块竞速BlockRacing 极速版
 
 ## 原作者已收录该模式 请前往[作者原仓库](https://github.com/LQSnow/BlockRacing)查看新版本！
+### 注意：以下内容已过时，仅供留念，请前往原作者仓库获取新版插件进行游玩！
+### 如果你需要基岩版支持，请查看[这里](https://github.com/xiaojiuwo233/BlockRacingBE)
+### 如果你需要为游戏增加新内容，请期待我后续进行开发的数据包
 
+---
 版本：Java 1.20.1
 
 原作者 ： [LQSnow/BlockRacing](https://github.com/LQSnow/BlockRacing)
@@ -16,18 +20,7 @@
 
 欢迎提交issue和pr 由于本人并不会写java 修改内容有限 有的建议可能无法实现
 
-# 计划（V1.3）
-### 以后将基于原作者的新版本 进行以下修改：
-
-1.修改菜单打开方式 潜行+空手右键 适配基岩版玩家
-
-2.为基岩版提供FormUI支持（第三方插件）
-
-3.为基岩版优化文字显示效果
-
-4.数据包支持（详见修改内容第8项）
-
-# 修改内容（V1.2.2及以前）
+# 修改内容
 1.将插件版本升级为1.20.1 支持新方块 locate新群系
 
 2.每局roll次数更改为3次 并且不仅限于简单方块 来源：[BlockyDeer/BlockRacingPlus](https://github.com/BlockyDeer/BlockRacingPlus)
@@ -61,13 +54,17 @@ goto s
 
 # 更新日志
 
-## 9.21 V1.2 
-同步更新至原作者2.1版本 [修改日志](https://github.com/xiaojiuwo233/InsaneMode1.2dev)
+## 2024.2.2 
+整理归档仓库
 
-## 9.24 V1.2.2
+## 2023.9.24 V1.2.2
 1.修复方块数量bug
 
 2.修复退出重进引起的bug
+
+## 2023.9.21 V1.2 
+同步更新至原作者2.1版本
+
 # 版权说明
 
 该项目签署 [**GNU Affero General Public License v3.0**](https://github.com/LQSnow/BlockRacing/blob/main/LICENSE) 授权许可
